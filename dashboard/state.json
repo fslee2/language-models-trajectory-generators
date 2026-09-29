@@ -1,0 +1,57 @@
+{
+  "title": "G2 × LMTG 插件接入",
+  "summary": "独立克隆轨迹生成仓库；为 Genie Sim G2 建立可复用的控制方法接口，并验证接入边界。",
+  "status": "进行中",
+  "tasks": [
+    {
+      "detail": "确认 PyBullet/Sawyer/Franka 与 Isaac/G2 差异",
+      "name": "核对上游和 G2 接口",
+      "status": "done"
+    },
+    {
+      "detail": "上游固定 4385a762，独立 Git 仓库",
+      "name": "建立独立插件克隆",
+      "status": "done"
+    },
+    {
+      "detail": "统一计划 schema 与两种方法入口已实现，7 个测试通过",
+      "name": "实现共享轨迹格式与多方法入口",
+      "status": "done"
+    },
+    {
+      "detail": "官方 IK 和计划驱动的小幅仿真动作通过，末端约移动 4.7 cm",
+      "name": "在服务器做 G2 接入验证",
+      "status": "done"
+    },
+    {
+      "detail": "只在独立插件仓库提交代码",
+      "name": "审查、记录并提交插件",
+      "status": "in progress"
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "后续优先接哪种模型服务？",
+      "default": "本轮不调用模型 API，下一阶段先接原有 workflow 的结构化输出"
+    }
+  ],
+  "outputs": [
+    {
+      "detail": "fslee2/language-models-trajectory-generators",
+      "title": "独立插件和用户 fork"
+    },
+    {
+      "detail": "共享计划 schema → 世界/机械臂坐标转换 → 官方 IK → 左臂仿真动作",
+      "title": "G2 计划接入验证"
+    },
+    {
+      "detail": "5 cm 命令，约 4.7 cm 观测位移；仍无抓放或任务评分",
+      "title": "控制探针"
+    },
+    {
+      "detail": "已创建并用于本次任务的单文件 HTML 看板",
+      "title": "Dashboard skill"
+    }
+  ],
+  "blockers": []
+}

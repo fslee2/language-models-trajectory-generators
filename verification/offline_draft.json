@@ -1,0 +1,140 @@
+{
+  "schema_version": "geniesim-g2-plan/1",
+  "task": "place_block_into_box",
+  "arm": "left",
+  "frame": "world",
+  "position_unit": "m",
+  "quaternion_order": "xyzw",
+  "waypoints": [
+    {
+      "pose": {
+        "position_m": [
+          -0.087,
+          0.245,
+          0.9349999999999999
+        ],
+        "orientation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "gripper": "open"
+    },
+    {
+      "pose": {
+        "position_m": [
+          -0.087,
+          0.245,
+          0.85
+        ],
+        "orientation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "gripper": "open"
+    },
+    {
+      "pose": {
+        "position_m": [
+          -0.087,
+          0.245,
+          0.85
+        ],
+        "orientation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "gripper": "closed"
+    },
+    {
+      "pose": {
+        "position_m": [
+          -0.087,
+          0.245,
+          0.965
+        ],
+        "orientation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "gripper": "holding"
+    },
+    {
+      "pose": {
+        "position_m": [
+          0.092,
+          0.04,
+          1.032
+        ],
+        "orientation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "gripper": "holding"
+    },
+    {
+      "pose": {
+        "position_m": [
+          0.092,
+          0.04,
+          0.942
+        ],
+        "orientation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "gripper": "holding"
+    },
+    {
+      "pose": {
+        "position_m": [
+          0.092,
+          0.04,
+          0.942
+        ],
+        "orientation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "gripper": "open"
+    },
+    {
+      "pose": {
+        "position_m": [
+          0.092,
+          0.04,
+          1.052
+        ],
+        "orientation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "gripper": "open"
+    }
+  ],
+  "source_method": "offline_geometry_draft",
+  "status": "proposed_unexecuted"
+}

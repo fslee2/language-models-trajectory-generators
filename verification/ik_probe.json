@@ -1,0 +1,32 @@
+{
+  "status": "ik_fk_and_frame_probe_passed_no_actuation",
+  "source": "official GenieSim v3.0.3 G2 IK-SDK wheel and fixed scene USD",
+  "gpu": 4,
+  "arm": "left",
+  "arm_base_world_position_m": [
+    -0.5754929780960083,
+    -0.026465263217687607,
+    1.1334195137023926
+  ],
+  "initial_left_eef_arm_base_m": [
+    0.437148816478294,
+    -0.09347294852109511,
+    0.40064447818386756
+  ],
+  "initial_left_eef_world_m": [
+    -0.14496574097329756,
+    0.37417921284353595,
+    1.01307592371964
+  ],
+  "local_probe_offset_m": [
+    0.05,
+    0,
+    0
+  ],
+  "ik_fk_position_error_m": 0.004977947867727952,
+  "ik_solve_calls": 126,
+  "frame_roundtrip_error_m": 3.597533769998862e-16,
+  "robot_moved": false,
+  "policy_executed": false,
+  "task_success": null
+}

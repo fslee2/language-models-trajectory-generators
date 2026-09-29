@@ -1,0 +1,17 @@
+{
+  "status": "g2_left_arm_motion_probe_passed",
+  "robot_moved_in_simulation": true,
+  "consumed_plan_schema": "geniesim-g2-plan/1",
+  "plan_source_method": "bounded_motion_probe",
+  "motion_command_arm_base_m": [
+    0.05,
+    0,
+    0
+  ],
+  "observed_eef_displacement_m": 0.046955307518781214,
+  "max_joint_target_error_rad": 2.1908796415504028e-05,
+  "ik_fk_target_error_m": 0.004977905662131175,
+  "policy_executed": false,
+  "pick_place_success": null,
+  "gpu": 4
+}

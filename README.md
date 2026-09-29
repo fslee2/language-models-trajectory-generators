@@ -1,5 +1,8 @@
 # Language Models as Zero-Shot Trajectory Generators
 
+For the isolated Genie Sim 3.0 / G2 adapter in this fork, see
+[GENIESIM_G2.md](GENIESIM_G2.md) and its [verification](VERIFICATION_G2.md).
+
 ## Teyun Kwon, Norman Di Palo, Edward Johns
 
 [The Robot Learning Lab](https://www.robot-learning.uk/), Department of Computing, Imperial College London
