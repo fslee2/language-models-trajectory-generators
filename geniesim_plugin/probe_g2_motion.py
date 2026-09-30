@@ -61,7 +61,7 @@ def main() -> int:
                            ("head_joints", "head_state"), ("gripper_joints", "init_hand")):
             for name, value in zip(names[group], states[key]):
                 indices.append(robot.dof_names.index(name))
-                values.append(value)
+                values.append(1 - value if group == "gripper_joints" else value)
         indices = np.asarray(indices)
         values = np.asarray(values)
         robot.set_joint_positions(values, joint_indices=indices)

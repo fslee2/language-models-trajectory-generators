@@ -1,0 +1,44 @@
+{
+  "schema_version": "geniesim-g2-plan/1",
+  "task": "place_block_into_box",
+  "arm": "left",
+  "frame": "world",
+  "position_unit": "m",
+  "quaternion_order": "xyzw",
+  "waypoints": [
+    {
+      "pose": {
+        "position_m": [
+          -0.14496295685575572,
+          0.37417469831519395,
+          1.0130682964281168
+        ],
+        "orientation_xyzw": [
+          0.23183914360099578,
+          -0.776789122080374,
+          0.5633875726238531,
+          -0.15951085958316918
+        ]
+      },
+      "gripper": "open"
+    },
+    {
+      "pose": {
+        "position_m": [
+          -0.16170416409748112,
+          0.36479409415063513,
+          0.9370664693122506
+        ],
+        "orientation_xyzw": [
+          0.23183914360099578,
+          -0.776789122080374,
+          0.5633875726238531,
+          -0.15951085958316918
+        ]
+      },
+      "gripper": "open"
+    }
+  ],
+  "source_method": "privileged_debug_approach",
+  "status": "proposed_unexecuted"
+}

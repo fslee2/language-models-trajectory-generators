@@ -1,0 +1,159 @@
+{
+  "task": "place_block_into_box",
+  "layout": 0,
+  "arm": "left",
+  "gpu": 4,
+  "source": "Isaac Sim privileged USD and articulation state after 90 frames",
+  "policy_input": false,
+  "robot_moved_by_policy": false,
+  "task_success": null,
+  "target": {
+    "prim_path": "/World/Objects/benchmark_building_blocks_e4e8268e",
+    "origin_world_m": [
+      -0.087,
+      0.245,
+      0.815
+    ],
+    "aabb_min_m": [
+      -0.11026720037141331,
+      0.22182549796594464,
+      0.7321396925576529
+    ],
+    "aabb_max_m": [
+      -0.06201535830759413,
+      0.26984738479609366,
+      0.7704116708089386
+    ]
+  },
+  "container": {
+    "prim_path": "/World/Objects/benchmark_building_blocks_0f256c95",
+    "origin_world_m": [
+      0.092,
+      0.04,
+      0.872
+    ],
+    "aabb_min_m": [
+      -0.0055884146075673435,
+      -0.05801645782489822,
+      0.7324014056186392
+    ],
+    "aabb_max_m": [
+      0.1897877670288773,
+      0.13734266562867198,
+      0.8775283858738662
+    ]
+  },
+  "left_gripper_center": {
+    "prim_path": "/genie/gripper_l_center_link",
+    "origin_world_m": [
+      -0.06940007209777832,
+      0.255217045545578,
+      0.9664134979248047
+    ]
+  },
+  "left_eef_fk_world_m": [
+    -0.14496295685575572,
+    0.37417469831519395,
+    1.0130682964281168
+  ],
+  "left_eef_fk_arm_base_m": [
+    0.43714198379242347,
+    -0.09346896200009813,
+    0.40064004308959705
+  ],
+  "left_gripper_joint_names": [
+    "idx41_gripper_l_outer_joint1"
+  ],
+  "left_gripper_joint_positions": [
+    0.7853982448577881
+  ],
+  "candidate_ik_preflight": {
+    "above_target": {
+      "desired_gripper_center_world_m": [
+        -0.08614127933950372,
+        0.24583644138101915,
+        0.8904116708089386
+      ],
+      "target_eef_world_m": [
+        -0.16170416409748112,
+        0.36479409415063513,
+        0.9370664693122506
+      ],
+      "ik_fk_error_m": 0.004851521943153559,
+      "ik_calls": 22,
+      "max_joint_delta_from_initial_rad": 0.2817188576533325,
+      "reachable_at_5mm": true
+    },
+    "pregrasp_target": {
+      "desired_gripper_center_world_m": [
+        -0.08614127933950372,
+        0.24583644138101915,
+        0.8304116708089386
+      ],
+      "target_eef_world_m": [
+        -0.16170416409748112,
+        0.36479409415063513,
+        0.8770664693122507
+      ],
+      "ik_fk_error_m": 0.004956122629844572,
+      "ik_calls": 45,
+      "max_joint_delta_from_initial_rad": 0.6523309007688063,
+      "reachable_at_5mm": true
+    },
+    "near_target": {
+      "desired_gripper_center_world_m": [
+        -0.08614127933950372,
+        0.24583644138101915,
+        0.7904116708089386
+      ],
+      "target_eef_world_m": [
+        -0.16170416409748112,
+        0.36479409415063513,
+        0.8370664693122507
+      ],
+      "ik_fk_error_m": 0.004909702228879247,
+      "ik_calls": 32,
+      "max_joint_delta_from_initial_rad": 0.8551931170701205,
+      "reachable_at_5mm": true
+    },
+    "above_container": {
+      "desired_gripper_center_world_m": [
+        0.09209967621065498,
+        0.039663103901886876,
+        1.0275283858738662
+      ],
+      "target_eef_world_m": [
+        0.016536791452677585,
+        0.15862075667150283,
+        1.074183184377178
+      ],
+      "ik_fk_error_m": 0.00496508294833393,
+      "ik_calls": 22,
+      "max_joint_delta_from_initial_rad": 0.6799356855538018,
+      "reachable_at_5mm": true
+    }
+  },
+  "preflight_limit": "IK/FK position only; no collision or contact validation",
+  "approach_execution": {
+    "status": "measurement_complete",
+    "plan_schema": "geniesim-g2-plan/1",
+    "source_method": "privileged_debug_approach",
+    "robot_moved": true,
+    "grasp_attempted": false,
+    "desired_gripper_center_world_m": [
+      -0.08614127933950372,
+      0.24583644138101915,
+      0.8904116708089386
+    ],
+    "actual_gripper_center_world_m": [
+      -0.0856928825378418,
+      0.24360114336013794,
+      0.8933030366897583
+    ],
+    "gripper_target_error_m": 0.0036820664837377047,
+    "max_joint_target_error_rad": 2.295227345827655e-05,
+    "target_object_origin_shift_m": 0.0,
+    "clearance_above_target_bbox_m": 0.12289136588081973,
+    "pick_place_success": null
+  }
+}

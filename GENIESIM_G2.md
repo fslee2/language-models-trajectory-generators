@@ -83,3 +83,15 @@ gripper, use collision checks, run the official benchmark evaluator, or claim
 task success. The offline geometric draft is not suitable for execution.
 
 Run the standard-library tests with `python -m unittest discover -s tests`.
+
+## First oracle-assisted DeepSeek rollout
+
+The local `geniesim_plugin.run_deepseek_debug_plan` entry point accepts a
+privileged scene snapshot, keeps the API key on the workstation, and emits a
+validated eight-waypoint `lmtg_structured` plan. The server probe reads only
+that JSON plan; it now covers staged approach, grasp, lift, transfer, release,
+and retreat in the pinned G2 Isaac scene. This is a debugging path with object
+AABBs and robot ground truth supplied to the model, not a visual policy score.
+The first full run picked up and carried the yellow block, then left it on the
+box lid rather than in the round hole. Details, measurements and the official
+evaluator limit are in `GENIESIM_MODEL_DEBUG_20260930.md`.

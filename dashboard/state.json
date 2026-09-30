@@ -1,7 +1,7 @@
 {
   "title": "GenieSim G2 × DeepSeek 轨迹评测",
-  "summary": "官方苹果入碗示例的推理模型回放已完成；旧 V4 Flash 名称实际转发到 V4.1 Flash。下一阶段先做原场景物理验证，再接 G2/RoboColyseum。",
-  "status": "下一阶段待执行",
+  "summary": "本地 DeepSeek 的结构化计划已在 Genie Sim G2 执行：抓取和转运成立，放置停在盒盖上。Memory 摘要可在下方筛选；下一步定位圆孔并运行官方判分。",
+  "status": "首轮物理调试完成",
   "tasks": [
     {
       "name": "官方示例文本消融",
@@ -19,23 +19,41 @@
       "status": "done"
     },
     {
-      "name": "原项目 PyBullet 苹果入碗验证",
-      "detail": "在原场景执行候选轨迹，记录 IK 可达性、碰撞、苹果最终位置和真实任务成功率",
+      "name": "Memory 可视化与选择",
+      "detail": "HTML 展示当前关键记忆及来源；记住/暂不使用保存在本机浏览器，支持导出选择",
+      "status": "done"
+    },
+    {
+      "name": "模型计划接入 Genie Sim G2",
+      "detail": "本地 reasoning=low 生成 8 waypoint JSON；服务器验证 schema/IK 并执行左臂、夹爪和相机回读",
+      "status": "done"
+    },
+    {
+      "name": "特权信息首轮抓放调试",
+      "detail": "方块抬升 13.3 cm，转运保持；释放后停在盒盖上，已定位到孔位信息缺失和释放高度",
+      "status": "done"
+    },
+    {
+      "name": "定位圆孔并修正放置目标",
+      "detail": "从几何或相机估计孔中心与有效深度，重算下降/释放姿态，再跑固定场景",
       "status": "to do"
     },
     {
-      "name": "映射到 GenieSim G2 场景",
-      "detail": "确认 G2 夹爪动作、坐标系和相机检测回传；沿用已通过的计划→小幅动作接口",
-      "status": "to do"
-    },
-    {
-      "name": "RoboColyseum pick-and-place 评测",
-      "detail": "固定场景和种子，对比官方示例与 DeepSeek 方案的抓取、放置和最终成功指标",
+      "name": "RoboColyseum 官方判分与非特权对照",
+      "detail": "调用 Follow→PickUpOnGripper→Inside；另做不提供物体真值的策略回合",
       "status": "to do"
     }
   ],
   "questions": [],
   "outputs": [
+    {
+      "title": "Genie Sim G2 模型计划首轮",
+      "detail": "抓取抬升 13.3 cm，转运保持；方块最终落在盒盖，官方评测尚未运行。见 GENIESIM_MODEL_DEBUG_20260930.md"
+    },
+    {
+      "title": "Memory 模块",
+      "detail": "当前上下文摘要、来源、记住/暂不使用选择和导出已加入本地 HTML 看板"
+    },
     {
       "title": "V4 旧别名实测",
       "detail": "请求 deepseek-v4-flash，API 返回 deepseek-flash；首轮检测后提前生成了虚构位置的动作，未执行"
@@ -51,7 +69,72 @@
   ],
   "blockers": [
     {
-      "text": "真实旧版 V4 Flash 已从 DeepSeek API 下线；当前旧模型名仅是 V4.1 的兼容入口。"
+      "text": "当前模型只得到盒子的整体 AABB，缺少圆孔中心和内腔；本轮放置落在盖面。"
+    }
+  ],
+  "memory": [
+    {
+      "id": "connection-order",
+      "title": "服务器连接顺序",
+      "summary": "先尝试直连 GPU 服务器；直连失败时才使用实验室桌面跳板。本轮直连已成功。",
+      "source": "PROJECT_MEMORY.md · 连接 GPU 服务器",
+      "recommendation": "keep"
+    },
+    {
+      "id": "server-boundary",
+      "title": "服务器工作边界",
+      "summary": "Genie Sim 的环境、资产、代码和日志都放在指定服务器工作根目录内；主项目与上游固定版本保持隔离。",
+      "source": "PROJECT_MEMORY.md · 连接 GPU 服务器 / Genie Sim 3.0",
+      "recommendation": "keep"
+    },
+    {
+      "id": "official-task",
+      "title": "当前官方任务",
+      "summary": "G2 OmniPicker、place_block_into_box、layout 0、固定 seed；v3.0.3 的任务指令与判分使用左臂。",
+      "source": "PROJECT_MEMORY.md · Genie Sim 3.0 / G2 场景构建",
+      "recommendation": "keep"
+    },
+    {
+      "id": "render-split",
+      "title": "渲染与查看分工",
+      "summary": "A100 服务器负责 Isaac 物理和画面渲染，本地电脑接收图片、视频和诊断结果。",
+      "source": "PROJECT_MEMORY.md · Genie Sim 3.0 / G2 场景构建",
+      "recommendation": "keep"
+    },
+    {
+      "id": "key-local",
+      "title": "模型密钥只留在本地",
+      "summary": "DeepSeek API key 不传服务器、不写入日志或实验产物；服务器只接收必要的结构化动作。",
+      "source": "PROJECT_MEMORY.md · 连接 GPU 服务器",
+      "recommendation": "keep"
+    },
+    {
+      "id": "privileged-debug",
+      "title": "特权信息的用途",
+      "summary": "本轮允许读仿真物体位姿、关节和判分状态来定位失败；正式策略输入需单独标注，不能把调试真值误报为视觉策略能力。",
+      "source": "当前任务约定 · 2026-09-30",
+      "recommendation": "keep"
+    },
+    {
+      "id": "flash-alias",
+      "title": "DeepSeek 旧版名称",
+      "summary": "deepseek-v4-flash 已是 V4.1 Flash 的兼容入口，不能据此做旧 V4 与 V4.1 的版本消融。",
+      "source": "DEEPSEEK_V4_ALIAS_CHECK.md",
+      "recommendation": "keep"
+    },
+    {
+      "id": "first-g2-rollout",
+      "title": "G2 首轮失败定位",
+      "summary": "特权调试中已抓起并转运黄色方块，但放置时停在盒盖；下一轮必须提供圆孔位置并降低释放高度，之后再跑官方判分。",
+      "source": "GENIESIM_MODEL_DEBUG_20260930.md",
+      "recommendation": "keep"
+    },
+    {
+      "id": "simpler-historical-calibration",
+      "title": "旧 Simpler 标定细节",
+      "summary": "H2/H3 等历史校准结果保留在项目 memory，当前 G2 官方场景的首轮插件接入不需要放入工作上下文。",
+      "source": "PROJECT_MEMORY.md · Calibration / H2 / H3 历史章节",
+      "recommendation": "skip"
     }
   ]
 }
