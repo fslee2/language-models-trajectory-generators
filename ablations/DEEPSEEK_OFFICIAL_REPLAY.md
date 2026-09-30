@@ -24,3 +24,5 @@ The `low` output uses the published apple center `[-0.07, 0.132, 0.058]` and bow
 The generated plan is **structurally plausible** and closer to the prompt's geometry than the no-reasoning control in this single run. Neither DeepSeek response nor the upstream GPT-4 transcript proves a successful placement. In particular, there is no evidence yet that the gripper avoids the bowl rim, that the arm can reach each pose, or that the apple settles inside the bowl. The next experiment should test these trajectories in the original PyBullet scene with collision and final-object-pose checks before adapting the model to G2/Genie Sim.
 
 Raw metadata, usage, responses, and AST summaries are in `ablations/results/place_apple_in_bowl_deepseek_flash_{low,none,high}.json`. The `high` file has only a first-turn response because that response was truncated.
+
+The separate `deepseek-v4-flash` legacy-name check is documented in `ablations/DEEPSEEK_V4_ALIAS_CHECK.md`. It is a compatibility-alias check against V4.1 Flash, not a historical V4 experiment.

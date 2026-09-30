@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CASE = "place_apple_in_bowl"
 COMMAND = "place the apple in the bowl"
-MODEL = "deepseek-flash"
+DEFAULT_MODEL = "deepseek-flash"
 ENDPOINT = "https://api.deepseek.com/chat/completions"
 KEY_FILE = Path("D:/Simpler/deepseek_api_key.txt")
 OFFICIAL = ROOT / "outputs" / f"{CASE}.txt"
@@ -67,12 +67,12 @@ def inspect_code(content):
     return parsed
 
 
-def call_api(messages, reasoning_effort):
+def call_api(messages, reasoning_effort, model):
     key = KEY_FILE.read_text(encoding="utf-8-sig").strip()
     if not key or "\n" in key or "\r" in key:
         raise ValueError("API key file must contain one nonempty key")
     request_body = {
-        "model": MODEL,
+        "model": model,
         "temperature": 0,
         "reasoning_effort": reasoning_effort,
         "max_tokens": 8000 if reasoning_effort != "none" else 5000,
@@ -93,7 +93,7 @@ def call_api(messages, reasoning_effort):
         raise RuntimeError(f"DeepSeek API returned HTTP {exc.code}") from None
     content = payload["choices"][0]["message"]["content"]
     return {
-        "requested_model": MODEL,
+        "requested_model": model,
         "returned_model": payload.get("model"),
         "response_id": payload.get("id"),
         "finish_reason": payload["choices"][0].get("finish_reason"),
@@ -107,8 +107,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("phase", choices=["first", "continue"])
     parser.add_argument("--reasoning", choices=["none", "low", "high"], default="low")
+    parser.add_argument("--model", choices=[DEFAULT_MODEL, "deepseek-v4-flash"], default=DEFAULT_MODEL)
     args = parser.parse_args()
-    result_path = RESULTS / f"{CASE}_deepseek_flash_{args.reasoning}.json"
+    model_slug = args.model.replace("-", "_")
+    result_path = RESULTS / f"{CASE}_{model_slug}_{args.reasoning}.json"
     prompt, detection, official = prompt_and_detection()
     metadata = {
         "case": CASE,
@@ -120,6 +122,7 @@ def main():
         "method": "Original main prompt, repository default EE pose, published detection printout; generated code never executed",
         "temperature": 0,
         "reasoning_effort": args.reasoning,
+        "requested_model": args.model,
         "created_utc": datetime.now(timezone.utc).isoformat(),
     }
     if args.phase == "first":
@@ -127,23 +130,29 @@ def main():
             raise FileExistsError(f"Result already exists: {result_path}")
         result = {"metadata": metadata}
         messages = [{"role": "system", "content": prompt}]
-        result["first"] = call_api(messages, args.reasoning)
+        result["first"] = call_api(messages, args.reasoning, args.model)
     else:
         result = json.loads(result_path.read_text(encoding="utf-8"))
         if result.get("metadata", {}).get("prompt_sha256") != metadata["prompt_sha256"]:
             raise ValueError("Prompt changed since first call")
+        if result.get("metadata", {}).get("requested_model") != args.model:
+            raise ValueError("Model changed since first call")
         if "second" in result:
             raise ValueError("Second call already recorded")
         first = result["first"]["content"]
-        detected = {name for block in inspect_code(first) for name in block.get("detected_objects", [])}
+        first_blocks = inspect_code(first)
+        detected = {name for block in first_blocks for name in block.get("detected_objects", [])}
         if not {"apple", "bowl"}.issubset(detected):
             raise ValueError("First response did not detect both apple and bowl; refusing oracle replay")
+        premature = {"execute_trajectory", "open_gripper", "close_gripper", "task_completed"}
+        if any(premature.intersection(block.get("calls", [])) for block in first_blocks):
+            raise ValueError("First response attempted motion before real detection; refusing oracle replay")
         messages = [
             {"role": "system", "content": prompt},
             {"role": "assistant", "content": first},
             {"role": "user", "content": detection},
         ]
-        result["second"] = call_api(messages, args.reasoning)
+        result["second"] = call_api(messages, args.reasoning, args.model)
     result_path.parent.mkdir(parents=True, exist_ok=True)
     result_path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     last = result["first"] if args.phase == "first" else result["second"]

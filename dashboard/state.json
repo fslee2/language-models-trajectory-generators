@@ -1,57 +1,57 @@
 {
-  "title": "G2 × LMTG 插件接入",
-  "summary": "独立克隆轨迹生成仓库；为 Genie Sim G2 建立可复用的控制方法接口，并验证接入边界。",
-  "status": "本阶段完成",
+  "title": "GenieSim G2 × DeepSeek 轨迹评测",
+  "summary": "官方苹果入碗示例的推理模型回放已完成；旧 V4 Flash 名称实际转发到 V4.1 Flash。下一阶段先做原场景物理验证，再接 G2/RoboColyseum。",
+  "status": "下一阶段待执行",
   "tasks": [
     {
-      "detail": "确认 PyBullet/Sawyer/Franka 与 Isaac/G2 差异",
-      "name": "核对上游和 G2 接口",
+      "name": "官方示例文本消融",
+      "detail": "DeepSeek Flash reasoning=low：检测和抓放顺序、六段 100 点轨迹结构通过；物理成功未验证",
       "status": "done"
     },
     {
-      "detail": "上游固定 4385a762，独立 Git 仓库",
-      "name": "建立独立插件克隆",
+      "name": "核实 V4 Flash API 入口",
+      "detail": "deepseek-v4-flash 请求成功但返回 deepseek-flash；官方确认旧名称映射 V4.1 Flash，无法做真实 V4 对照",
       "status": "done"
     },
     {
-      "detail": "统一计划 schema 与两种方法入口已实现，7 个测试通过",
-      "name": "实现共享轨迹格式与多方法入口",
+      "name": "阻止检测前的虚构动作",
+      "detail": "旧别名这次在检测回传前编造物体坐标并生成运动；回放脚本已增加拒绝继续的检查",
       "status": "done"
     },
     {
-      "detail": "官方 IK 和计划驱动的小幅仿真动作通过，末端约移动 4.7 cm",
-      "name": "在服务器做 G2 接入验证",
-      "status": "done"
+      "name": "原项目 PyBullet 苹果入碗验证",
+      "detail": "在原场景执行候选轨迹，记录 IK 可达性、碰撞、苹果最终位置和真实任务成功率",
+      "status": "to do"
     },
     {
-      "detail": "独立 fork 分支已推送，远端 SHA 已核对",
-      "name": "审查、记录并提交插件",
-      "status": "done"
+      "name": "映射到 GenieSim G2 场景",
+      "detail": "确认 G2 夹爪动作、坐标系和相机检测回传；沿用已通过的计划→小幅动作接口",
+      "status": "to do"
+    },
+    {
+      "name": "RoboColyseum pick-and-place 评测",
+      "detail": "固定场景和种子，对比官方示例与 DeepSeek 方案的抓取、放置和最终成功指标",
+      "status": "to do"
     }
   ],
-  "questions": [
-    {
-      "default": "先接原有 workflow 的结构化输出；本阶段没有付费模型调用",
-      "prompt": "下一阶段模型服务的选择"
-    }
-  ],
+  "questions": [],
   "outputs": [
     {
-      "detail": "https://github.com/fslee2/language-models-trajectory-generators/tree/codex/geniesim-g2-adapter",
-      "title": "插件 GitHub 分支"
+      "title": "V4 旧别名实测",
+      "detail": "请求 deepseek-v4-flash，API 返回 deepseek-flash；首轮检测后提前生成了虚构位置的动作，未执行"
     },
     {
-      "detail": "左臂末端约移动 4.7 cm；官方任务评测尚未运行",
-      "title": "G2 计划→动作探针"
+      "title": "DeepSeek 官方示例消融",
+      "detail": "reasoning=low 的苹果入碗文本计划结构合理；报告与原始回复保存在 ablations/"
     },
     {
-      "detail": "已安装并纳入插件版本管理；HTML 看板由该 skill 生成",
-      "title": "可复用 dashboard skill"
-    },
-    {
-      "detail": "结构化 LMTG 方法与现有工作流计划可共用验证格式",
-      "title": "模型方法接口"
+      "title": "G2 接口探针",
+      "detail": "服务器 Isaac/G2 左臂小幅动作已通过，末端约移动 4.7 cm；尚未完成 pick-and-place"
     }
   ],
-  "blockers": []
+  "blockers": [
+    {
+      "text": "真实旧版 V4 Flash 已从 DeepSeek API 下线；当前旧模型名仅是 V4.1 的兼容入口。"
+    }
+  ]
 }
