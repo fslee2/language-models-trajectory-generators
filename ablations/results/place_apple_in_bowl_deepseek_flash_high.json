@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "case": "place_apple_in_bowl",
+    "command": "place the apple in the bowl",
+    "source": "outputs/place_apple_in_bowl.txt",
+    "official_sha256": "ea0fac7710da147dd879f4dee88571d5002d008ceb28af59326ed2ff3ef29015",
+    "prompt_sha256": "e4e349f0956501159243e4e4229a86a7dac48118b996745c9f14cd26d30a166f",
+    "detection_sha256": "9fb8cbd739aede8cec25172dfd665c400abc494a213d9e87e326ed518b016ddc",
+    "method": "Original main prompt, repository default EE pose, published detection printout; generated code never executed",
+    "temperature": 0,
+    "reasoning_effort": "high",
+    "created_utc": "2026-09-30T00:15:30.779918+00:00"
+  },
+  "first": {
+    "requested_model": "deepseek-flash",
+    "returned_model": "deepseek-flash",
+    "response_id": "bb91fc81-4690-4c54-b90b-9b813579b9a0",
+    "finish_reason": "length",
+    "usage": {
+      "prompt_tokens": 1285,
+      "completion_tokens": 8000,
+      "total_tokens": 9285,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 8000
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 1285
+    },
+    "content": "",
+    "code_analysis": []
+  }
+}
